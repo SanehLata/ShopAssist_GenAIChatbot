@@ -11,6 +11,10 @@ __pycache__/
 *.log
 .env
 
+#db files
+*.db
+*.db-journal
+
 # C extensions
 *.so
 
