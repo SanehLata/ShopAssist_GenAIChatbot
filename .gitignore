@@ -12,7 +12,6 @@ __pycache__/
 .env
 
 #db files
-*.db
 *.db-journal
 
 # C extensions
