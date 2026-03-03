@@ -15,7 +15,9 @@ faq = Route(
         "What payment methods are accepted?",
         "How long does it take to process a refund?",
         "Do you accept cash or card?",
-        "Do you have return policy for defective products ?"
+        "Do you have return policy for defective products ?",
+        "Do you have return policy for women accessories like jewellery ?",
+        "What if the received jewellery items are defective"
 
     ],
     score_threshold=0.3
@@ -24,16 +26,49 @@ faq = Route(
 sql = Route(
     name='sql',
     utterances=[
-        "I want to buy nike shoes that have 50% discount.",
-        "Are there any shoes under Rs. 3000?",
+        "I want to buy women shoes that have 50% discount.",
+        "Are there any shoes under 30$",
         "Do you have formal shoes in size 9?",
-        "Are there any Puma shoes on sale?",
-        "What is the price of puma running shoes?",
+        "Are there any wedding shoes on sale?",
+        "What is the price of man's running shoes?",
+        "Sports shoes for men in white color"
+        "Necklace for women",
+        "rings for women",
+        "ear rings for women",
+        "jewellery for women",
+        "accessories for women for wedding and parties",
+        "wedding accessories for women",
+        "party accessories for women",
+        "jewellery for women for wedding and parties",
+        "necklace for women for wedding and parties",
+        "ear rings for women for wedding and parties",
+        "rings for women for wedding and parties",
     ],
     score_threshold=0.3
 )
 
-router = SemanticRouter(encoder=encoder, routes=[faq, sql], auto_sync="local")
+smalltalk = Route(
+    name='smalltalk',
+    utterances=[
+        "hello",
+        "hi",
+        "hey",
+        "good morning",
+        "good afternoon",
+        "good evening",
+        "how are you",
+        "what are you",
+        "who are you",
+        "thanks",
+        "thank you",
+        "bye",
+        "goodbye",
+        "nice to meet you"
+    ],
+    score_threshold=0.3
+)
+
+router = SemanticRouter(encoder=encoder, routes=[faq, sql,smalltalk], auto_sync="local")
 
 if __name__ == "__main__":
     print(router("What is your policy on defective product?").name)

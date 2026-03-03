@@ -9,6 +9,7 @@ from app.faq import ingest_faq_data, faq_chain, get_chroma_client
 from app.sql import sql_chain
 from app.config import FAQS_PATH
 from app.router import router
+from app.smalltalk import handle_smalltalk
 
 # cache initialization (CRITICAL for Streamlit)
 @st.cache_resource
@@ -28,8 +29,10 @@ def ask(query):
         return faq_chain(query, chroma_client)
     elif route == 'sql':
         return sql_chain(query)
+    elif route == 'smalltalk':
+        return handle_smalltalk(query)
     else:
-        return (f"I'm sorry, I didn't understand your question. Could you try rephrasing your question so I can assist you better?")
+        return (f"I'm sorry, I can help with shopping Shoes and accessories only.")
 
 st.title("ShopAssist E-commerce Chat Bot")
 

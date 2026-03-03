@@ -6,46 +6,80 @@ from app.config import GROQ_MODEL, DB_PATH
 
 client_sql = Groq()
 
-sql_prompt = """You are an expert in understanding the database schema and generating SQL queries for a natural language question asked
-pertaining to the data you have. The schema is provided in the schema tags. 
-<schema> 
-table: product 
+sql_prompt = """You are an expert in generating SQL queries from natural language using given schema.
+<schema>
+table: products
 
-fields: 
-product_link - string (hyperlink to product)	
-title - string (name of the product)	
-brand - string (brand of the product)	
-price - integer (price of the product in Indian Rupees)	
-discount - float (discount on the product. 10 percent discount is represented as 0.1, 20 percent as 0.2, and such.)	
-avg_rating - float (average rating of the product. Range 0-5, 5 is the highest.)	
-total_ratings - integer (total number of ratings for the product)
-
+fields:
+product_id (integer)
+url (string)
+title (string)
+description (string)
+price (integer)
+currency (string)
+availability (string)
+rating (float)
+review_count (integer)
+category (string)
+scraped_at (datetime)
 </schema>
 
 Rules:
-1. For string fields (title, brand, product_link):
-   - Use LIKE for partial matches. Example: brand LIKE '%puma%'
-   - For case-insensitive search ALWAYS use: LOWER(column_name) LIKE LOWER('%value%')
-   - Never use ILIKE or other operators.
-2. For numeric fields (price, discount, avg_rating, total_ratings):
-   - Use =, <, <=, >, >=, or BETWEEN. Do not use LIKE.
-3. Always SELECT *.
-4. Never use columns not in the schema (e.g., size, color, stock).
-5. Generate a single SQL query only.
-6. Wrap the SQL in <SQL></SQL> tags.
-7. Always include LIMIT 5 at the end of the query to prevent large result sets.
 
-Just the SQL query is needed, nothing more. Always provide the SQL in between the <SQL></SQL> tags."""
+1. Always SELECT * from products
+2. String matching rules:
+   - Use LOWER(column) exactly LIKE '% keyword %'. Always have space before and after keyword. Never use '%keyword%'
+   - Each keyword must have only one word.
+   - Apply keyword filters(for color, event, size, occasion) separately on title and description
+   - Combine title conditions using AND
+   - Combine description conditions using AND
+   - Combine title and description blocks using OR
+
+   - The WHERE clause MUST EXACTLY match this template.
+        Do not rearrange parentheses.
+        Do not move category inside title or description blocks.
+        template:
+
+       WHERE
+       (
+           (
+               LOWER(title) LIKE '% keyword1 %'
+               AND LOWER(title) LIKE '% keyword2 %'
+           )
+           OR
+           (
+               LOWER(description) LIKE '% keyword1 %'
+               AND LOWER(description) LIKE '% keyword2 %'
+           )
+       )
+       AND LOWER(category) LIKE '% category%'
+
+3. Category must only use:
+   - men
+   - women
+   - jewelry
+   
+4. Numeric fields (price, rating, review_count):
+   Use =, <, >, <=, >=, BETWEEN only
+5. Do NOT use columns outside schema
+6. Do NOT use CONCAT or combine title and description
+7. Output ONLY SQL query inside:
+
+<SQL>
+SELECT ...
+</SQL>
+
+8. Always add LIMIT 5"""
 
 
 comprehension_prompt = """You are an expert in understanding the context of the question and replying based on the data pertaining to the question provided. You will be provided with Question: and Data:. The data will be in the form of an array or a dataframe or dict. Reply based on only the data provided as Data for answering the question asked as Question. Do not write anything like 'Based on the data' or any other technical words. Just a plain simple natural language response.
 The Data would always be in context to the question asked. For example is the question is “What is the average rating?” and data is “4.3”, then answer should be “The average rating for the product is 4.3”. So make sure the response is curated with the question and data. Make sure to note the column names to have some context, if needed, for your response.
 There can also be cases where you are given an entire dataframe in the Data: field. Always remember that the data field contains the answer of the question asked. All you need to do is to always reply in the following format when asked about a product: 
-Produt title, price in indian rupees, discount, and rating, and then product link. Take care that all the products are listed in list format, one line after the other. Not as a paragraph.
+Produt title, price in USD and rating, and then product link. Take care that all the products are listed in list format, one line after the other. Not as a paragraph.
 For example:
-1. Campus Women Running Shoes: Rs. 1104 (35 percent off), Rating: 4.4 <link>
-2. Campus Women Running Shoes: Rs. 1104 (35 percent off), Rating: 4.4 <link>
-3. Campus Women Running Shoes: Rs. 1104 (35 percent off), Rating: 4.4 <link>
+1. Campus Women Running Shoes: $104.48, Rating: 4.4 <link>
+2. Nike Men Running Shoes: $134.29, Rating: 4.9 <link>
+3. Women necklace white: $48.20, Rating: 4.7 <link>
 
 """
 
@@ -113,7 +147,13 @@ def sql_chain(question):
     if response is None:
         return "Sorry, there was a problem executing SQL query"
 
-    context = response.to_dict(orient='records')
+    # context = response.to_dict(orient='records')
+    context = response[[
+        "title",
+        "price",
+        "rating",
+        "url",
+    ]].head(5).to_dict(orient='records')
 
     answer = data_comprehension(question, context)
     return answer

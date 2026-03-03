@@ -12,15 +12,20 @@ load_dotenv(dotenv_path=BASE_DIR / ".env")
 #                   Paths
 # -------------------------------------------------
 FAQS_PATH = BASE_DIR / "app/resources/faq_data.csv"
-DB_PATH = BASE_DIR / "app/resources/db.sqlite"
+DB_PATH = BASE_DIR / "app/resources/etsy_products.db"
 
 # -------------------------------------------------
 #               API keys & Models
 # -------------------------------------------------
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
+#GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+
 HF_TOKEN = os.getenv("HF_TOKEN")
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
+
+OPENAI_API_KEY=os.getenv("OPENAI_API_KEY")
+OPENAI_API_MODEL=os.getenv("gpt-4o")
 
 # -------------------------------------------------
 #           Validate critical keys
