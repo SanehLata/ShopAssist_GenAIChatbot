@@ -16,19 +16,6 @@ https://shop-assist-gen-ai-chatbot.streamlit.app/
 - 🔄 **Semantic Routing Workflow** — Efficient pipeline for natural language queries.
 - 📦 **Uses Python & AI Libraries** — Easily extendable and customizable.
 
----
-
-## 📦 Project Structure
-
-
-ShopAssist_GenAIChatbot/
-├─ .devcontainer/
-├─ app/
-├─ docs/
-│ └─ architecture.html # Architecture diagram (interactive HTML)
-├─ web-scrapping/
-├─ requirements.txt
-└─ README.md
 
 ### ⚙️ Installation
 
@@ -47,3 +34,28 @@ venv\Scripts\activate       # Windows
 Install dependencies
 
 pip install -r requirements.txt
+
+
+### 🛠️ Tech Stack
+#### 1. Programming & Frameworks
+
+  Python 3.10+ – Core language for backend and AI integration
+
+  Streamlit – Frontend UI for running the chatbot locally or online
+
+#### 2. AI & NLP
+
+  Groq model(llama-3.1-8b-instant) – For natural language understanding and response generation
+
+  HuggingFace Transformers – Alternative LLM embeddings and encoders
+
+  Semantic Search / Vector Database – Chroma for knowledge retrieval 
+
+  Embedding Model (all-MiniLM-L6-v2) to generate Text embeddings for semantic similarity search
+
+#### 3. Database & Storage
+
+  SQLite for storing product data
+
+  CSV – Knowledge base storage for FAQs
+
