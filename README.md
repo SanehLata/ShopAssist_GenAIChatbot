@@ -3,3 +3,6 @@ The project implements an intelligent, e-commerce chatbot powered by semantic ro
 
 https://shop-assist-gen-ai-chatbot.streamlit.app/
 
+### Architecture Diagram
+
+![Architecture Diagram](docs/architecture.jpg)
