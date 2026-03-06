@@ -14,7 +14,9 @@ The chatbot is built around a multi-route conversational framework consisting of
   Enables users to search for products through natural language queries.
 
 ### ▶️ Live Demo
-      https://shop-assist-gen-ai-chatbot.streamlit.app/
+  https://shop-assist-gen-ai-chatbot.streamlit.app
+        
+  
 
 ## 🧠 Architecture Diagram
 
