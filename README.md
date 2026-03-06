@@ -13,12 +13,12 @@ The chatbot is built around a multi-route conversational framework consisting of
 ##### Product Query Route: 
   Enables users to search for products through natural language queries.
 
-### ▶️ Recorded Demo
+## ▶️ Recorded Demo
 
 ![Recorded Demo](docs/ShopAssist.gif)
   
 
-### ▶️ Live Application
+## ▶️ Live Application
   https://shop-assist-gen-ai-chatbot.streamlit.app
         
 
@@ -86,4 +86,88 @@ The chatbot is built around a multi-route conversational framework consisting of
 | Version Control | Git + GitHub                      |
 
 
+## 💡 Use cases in IT industry
 
+The same architecture (Semantic Routing + NL→SQL + Vector FAQ) is highly reusable for other strong IT use cases:
+
+### 🛠️ IT Operations & Support
+#### 1. Internal IT Helpdesk Bot
+Handles natural language questions like:
+
+    "How do I reset my VPN?"
+    
+    "My laptop won't connect to Wi-Fi" 
+  
+  The bot routes to FAQs, troubleshooting guides, or raises a ticket automatically.
+#### 2. Incident Management Assistant
+Query past incidents naturally: 
+
+      "Show me all P1 incidents in the last 30 days related to the payment service" 
+    
+  NL→SQL hits your incident database and returns structured results.
+#### 3. On-Call Runbook Assistant
+Engineers on call ask 
+
+      "What's the recovery steps for database failover?" 
+      
+The bot retrieves the right runbook section via vector search, saving critical minutes during outages.
+
+### ☁️ DevOps & Infrastructure
+#### 1. Cloud Cost Assistant
+Handles queries like :
+
+       "Which AWS services cost the most last month?"
+       
+       "Compare EC2 spend across dev and prod"
+       
+NL→SQL against cost/billing data from AWS Cost Explorer exports.
+
+#### 2. CI/CD Pipeline Assistant
+Queries your pipeline metadata database naturally:
+
+      "Show me all failed deployments to production this week" 
+      
+      "Which microservice has the most flaky tests?" 
+      
+  
+#### 3. Infrastructure Inventory Bot
+Natural language querying of your CMDB or cloud inventory.
+
+      "List all EC2 instances running in us-east-1 above 80% CPU".
+
+### 📋 Knowledge & Documentation
+#### 1. Internal Developer Portal Bot
+New joiners asks:
+
+      "How do I set up the local dev environment?"
+      
+      "What's the PR review process?" 
+      
+  Vector search over your onboarding docs, Confluence, Sharepoint, wikis, and READMEs etc.
+  
+#### 2. API Documentation Assistant
+Developers ask "How do I authenticate with the payments API?"
+
+      "What does error code 4023 mean?" 
+      
+Semantic search over API docs and OpenAPI specs.
+
+#### 3. Post-Mortem / RCA Knowledge Base
+
+      "Have we seen this kind of memory leak before?"
+      
+Searches past post-mortems semantically, helping teams avoid repeating past mistakes.
+
+### 📊 Data & Analytics
+#### 1. Business Intelligence Chatbot
+Non-technical stakeholders ask 
+
+      "How many users signed up last quarter?" 
+      
+NL→SQL against your data warehouse, no SQL knowledge needed or technical support team needed.
+
+#### 2. Log Analysis Assistant
+
+      "Show errors from the checkout service between 2pm and 3pm yesterday"
+      
+NL→SQL or NL→query against structured log data in tools like Elasticsearch or BigQuery.
