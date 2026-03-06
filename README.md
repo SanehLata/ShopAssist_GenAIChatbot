@@ -25,7 +25,9 @@ The chatbot is built around a multi-route conversational framework consisting of
 
 ## 🧠 Architecture Diagram
 
-![Architecture Diagram](docs/architecture.jpg)
+
+![Architecture](docs/architecture.gif)
+
 
 ## ✨ Features
 
