@@ -21,7 +21,10 @@ The chatbot is built around a multi-route conversational framework consisting of
 ### ▶️ Live Application
   https://shop-assist-gen-ai-chatbot.streamlit.app
         
-  
+
+## 💻 Business Value and Measurable Impact
+![How its better than Traditional Search](docs/ShopAssist_Presentation.pdf)
+
 
 ## 🧠 Architecture Diagram
 
