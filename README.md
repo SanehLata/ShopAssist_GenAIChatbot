@@ -13,7 +13,12 @@ The chatbot is built around a multi-route conversational framework consisting of
 ##### Product Query Route: 
   Enables users to search for products through natural language queries.
 
-### ▶️ Live Demo
+### ▶️ Recorded Demo
+
+![Recorded Demo](docs/ShopAssist.gif)
+  
+
+### ▶️ Live Application
   https://shop-assist-gen-ai-chatbot.streamlit.app
         
   
