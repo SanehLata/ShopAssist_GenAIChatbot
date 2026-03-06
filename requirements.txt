@@ -6,4 +6,4 @@ groq
 semantic-router
 chromadb
 sentence_transformers
-selenium
+playwright
